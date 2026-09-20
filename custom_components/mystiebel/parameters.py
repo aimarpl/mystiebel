@@ -11,6 +11,10 @@ PROFILE_PARAMETER_FILES = {
     "central_ventilation_wifi": data_path / "central_ventilation_wifi.json",
 }
 READ_ONLY_PROFILE_TYPES = {"central_ventilation_wifi"}
+PROFILE_TYPES_BY_GUID = {
+    "d7a4be01-4f17-4e34-9033-888f70dbac70": "central_ventilation_wifi",
+}
+CENTRAL_VENTILATION_PROFILE_NAMES = {"lwzx80", "lwxx80"}
 AUXILIARY_SENSOR_REGISTERS = {
     "controller_sw_version": {65535, 65536, 65537, 65560},
     "wifi_adapter_sw_version": {65523, 65524, 65525, 65559},
@@ -36,7 +40,19 @@ def supported_auxiliary_sensors(fields):
 def profile_type_from_installation(device_data):
     """Return the profile type used by the MyStiebel installation."""
     profile = device_data.get("profile", {}) if device_data else {}
-    return profile.get("typeName") or profile.get("type_name")
+    profile_type = profile.get("typeName") or profile.get("type_name")
+    if profile_type:
+        return profile_type
+
+    profile_guid = str(profile.get("guid", "")).lower()
+    if profile_guid in PROFILE_TYPES_BY_GUID:
+        return PROFILE_TYPES_BY_GUID[profile_guid]
+
+    profile_name = str(profile.get("name", "")).strip().casefold()
+    if profile_name in CENTRAL_VENTILATION_PROFILE_NAMES:
+        return "central_ventilation_wifi"
+
+    return None
 
 
 def convert_value(value_str, scale_str):
