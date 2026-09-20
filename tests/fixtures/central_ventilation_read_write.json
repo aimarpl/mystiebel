@@ -1,0 +1,31 @@
+{
+  "texts": {
+    "test_name": {
+      "en": "Test"
+    }
+  },
+  "choice_lists": [],
+  "parameters": [
+    {
+      "id": "TEST_CONTROL",
+      "number": 1,
+      "name": "test_name",
+      "data_type": "Number",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read_write"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read_write"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "1",
+      "scale": "0",
+      "unit": "none"
+    }
+  ],
+  "groups": []
+}
