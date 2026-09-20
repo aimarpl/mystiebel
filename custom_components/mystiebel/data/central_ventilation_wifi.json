@@ -1,0 +1,704 @@
+{
+  "texts": {
+    "VENT_EXTRACT_AIR_HUMIDITY": {
+      "en": "Extract air humidity",
+      "pl": "Wilgotność powietrza wywiewanego"
+    },
+    "VENT_EXTRACT_AIR_TEMPERATURE": {
+      "en": "Extract air temperature",
+      "pl": "Temperatura powietrza wywiewanego"
+    },
+    "VENT_STATUS_BYPASS": {
+      "en": "Bypass status",
+      "pl": "Stan bypassu"
+    },
+    "VENT_FILTER_RESET": {
+      "en": "Filter reset",
+      "pl": "Reset filtra"
+    },
+    "VENT_INTENSIVE_VENTILATION_REMAINING_TIME": {
+      "en": "Intensive ventilation remaining time",
+      "pl": "Pozostały czas wentylacji intensywnej"
+    },
+    "VENT_FILTER_RUL": {
+      "en": "Filter remaining life",
+      "pl": "Pozostała żywotność filtra"
+    },
+    "VENT_FILTER_CHANGE_STATUS": {
+      "en": "Filter replacement required",
+      "pl": "Wymagana wymiana filtra"
+    },
+    "SYSTEM_ERROR_PRESENT": {
+      "en": "System error present",
+      "pl": "Błąd systemu"
+    },
+    "AIR_INTAKE_PRE_HEATING": {
+      "en": "Air intake preheating",
+      "pl": "Nagrzewnica wstępna powietrza"
+    },
+    "CONDENSATE_PREVENTION_ACTIVE": {
+      "en": "Condensate prevention",
+      "pl": "Ochrona przed kondensacją"
+    },
+    "VENT_INTENSE_DURATION": {
+      "en": "Intensive ventilation duration",
+      "pl": "Czas wentylacji intensywnej"
+    },
+    "VENT_ACTIVE_STAGE": {
+      "en": "Active ventilation stage",
+      "pl": "Aktywny poziom wentylacji"
+    },
+    "VENT_STAGE_SETPOINT": {
+      "en": "Ventilation stage setpoint",
+      "pl": "Zadany poziom wentylacji"
+    },
+    "PID_GTW_ORDERNUMBER": {
+      "en": "Gateway order number",
+      "pl": "Numer katalogowy modułu Wi-Fi"
+    },
+    "PID_GTW_PRODUCTIONNUMBER": {
+      "en": "Gateway production number",
+      "pl": "Numer produkcyjny modułu Wi-Fi"
+    },
+    "PID_GTW_FACTORYNUMBER": {
+      "en": "Gateway factory number",
+      "pl": "Numer fabryczny modułu Wi-Fi"
+    },
+    "PID_ORDERNUMBER_MAINCONTROL_UNIT": {
+      "en": "Controller order number",
+      "pl": "Numer katalogowy sterownika"
+    },
+    "PID_PRODUCTIONNUMBER_MAINCONTROL_UNIT": {
+      "en": "Controller production number",
+      "pl": "Numer produkcyjny sterownika"
+    },
+    "PID_FACTORYNUMBER_MAINCONTROL_UNIT": {
+      "en": "Controller factory number",
+      "pl": "Numer fabryczny sterownika"
+    },
+    "PID_GTW_PLANT_IDENTIFICATION": {
+      "en": "Gateway plant identification",
+      "pl": "Identyfikator instalacji modułu Wi-Fi"
+    },
+    "PID_PLANT_IDENTIFICATION_MAINCONTROL_UNIT": {
+      "en": "Controller plant identification",
+      "pl": "Identyfikator instalacji sterownika"
+    },
+    "closed": {
+      "en": "Closed",
+      "pl": "Zamknięty"
+    },
+    "open": {
+      "en": "Open",
+      "pl": "Otwarty"
+    },
+    "off": {
+      "en": "Off",
+      "pl": "Wyłączony"
+    },
+    "on": {
+      "en": "On",
+      "pl": "Włączony"
+    },
+    "on_1": {
+      "en": "Active 1",
+      "pl": "Aktywna 1"
+    },
+    "on_2": {
+      "en": "Active 2",
+      "pl": "Aktywna 2"
+    },
+    "on_3": {
+      "en": "Active 3",
+      "pl": "Aktywna 3"
+    },
+    "moisture_protection": {
+      "en": "Moisture protection",
+      "pl": "Ochrona przed wilgocią"
+    },
+    "stage_1": {
+      "en": "Stage 1",
+      "pl": "Poziom 1"
+    },
+    "stage_2": {
+      "en": "Stage 2",
+      "pl": "Poziom 2"
+    },
+    "intense": {
+      "en": "Intensive",
+      "pl": "Intensywny"
+    },
+    "timeprogram": {
+      "en": "Time program",
+      "pl": "Program czasowy"
+    }
+  },
+  "choice_lists": [
+    {
+      "id": "State_open_closed",
+      "choices": [
+        {
+          "id": "closed",
+          "text": "closed",
+          "value": 0
+        },
+        {
+          "id": "open",
+          "text": "open",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "State_on_off",
+      "choices": [
+        {
+          "id": "off",
+          "text": "off",
+          "value": 0
+        },
+        {
+          "id": "on",
+          "text": "on",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "CondensateStatus",
+      "choices": [
+        {
+          "id": "off",
+          "text": "off",
+          "value": 0
+        },
+        {
+          "id": "on_1",
+          "text": "on_1",
+          "value": 1
+        },
+        {
+          "id": "on_2",
+          "text": "on_2",
+          "value": 2
+        },
+        {
+          "id": "on_3",
+          "text": "on_3",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "id": "VentilationStage",
+      "choices": [
+        {
+          "id": "moisture_protection",
+          "text": "moisture_protection",
+          "value": 0
+        },
+        {
+          "id": "stage_1",
+          "text": "stage_1",
+          "value": 1
+        },
+        {
+          "id": "stage_2",
+          "text": "stage_2",
+          "value": 2
+        },
+        {
+          "id": "intense",
+          "text": "intense",
+          "value": 3
+        },
+        {
+          "id": "timeprogram",
+          "text": "timeprogram",
+          "value": 4
+        }
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "id": "VENT_EXTRACT_AIR_HUMIDITY",
+      "number": 2553,
+      "name": "VENT_EXTRACT_AIR_HUMIDITY",
+      "data_type": "Humidity",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "1000",
+      "scale": "-1",
+      "unit": "humidity",
+      "enabled_default": true
+    },
+    {
+      "id": "VENT_EXTRACT_AIR_TEMPERATURE",
+      "number": 2554,
+      "name": "VENT_EXTRACT_AIR_TEMPERATURE",
+      "data_type": "Temperature",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "-400",
+      "max_value": "400",
+      "scale": "-1",
+      "unit": "degree_celsius",
+      "enabled_default": true
+    },
+    {
+      "id": "VENT_STATUS_BYPASS",
+      "number": 2555,
+      "name": "VENT_STATUS_BYPASS",
+      "data_type": "State",
+      "choicelist_id": "State_open_closed",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "1",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": true
+    },
+    {
+      "id": "VENT_FILTER_RESET",
+      "number": 2556,
+      "name": "VENT_FILTER_RESET",
+      "data_type": "State",
+      "choicelist_id": "State_on_off",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "1",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": false
+    },
+    {
+      "id": "VENT_INTENSIVE_VENTILATION_REMAINING_TIME",
+      "number": 2557,
+      "name": "VENT_INTENSIVE_VENTILATION_REMAINING_TIME",
+      "data_type": "DurationMinutes",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "240",
+      "scale": "0",
+      "unit": "minute",
+      "enabled_default": true
+    },
+    {
+      "id": "VENT_FILTER_RUL",
+      "number": 2558,
+      "name": "VENT_FILTER_RUL",
+      "data_type": "DurationDays",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "65535",
+      "scale": "0",
+      "unit": "day",
+      "enabled_default": true
+    },
+    {
+      "id": "VENT_FILTER_CHANGE_STATUS",
+      "number": 2559,
+      "name": "VENT_FILTER_CHANGE_STATUS",
+      "data_type": "State",
+      "choicelist_id": "State_on_off",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "1",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": true
+    },
+    {
+      "id": "SYSTEM_ERROR_PRESENT",
+      "number": 2560,
+      "name": "SYSTEM_ERROR_PRESENT",
+      "data_type": "State",
+      "choicelist_id": "State_on_off",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "1",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": true
+    },
+    {
+      "id": "AIR_INTAKE_PRE_HEATING",
+      "number": 2561,
+      "name": "AIR_INTAKE_PRE_HEATING",
+      "data_type": "State",
+      "choicelist_id": "State_on_off",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "1",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": true
+    },
+    {
+      "id": "CONDENSATE_PREVENTION_ACTIVE",
+      "number": 2562,
+      "name": "CONDENSATE_PREVENTION_ACTIVE",
+      "data_type": "CondensateStatus",
+      "choicelist_id": "CondensateStatus",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "3",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": true
+    },
+    {
+      "id": "VENT_INTENSE_DURATION",
+      "number": 2563,
+      "name": "VENT_INTENSE_DURATION",
+      "data_type": "DurationMinutes",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "1",
+      "max_value": "240",
+      "scale": "0",
+      "unit": "minute",
+      "enabled_default": true
+    },
+    {
+      "id": "VENT_ACTIVE_STAGE",
+      "number": 2564,
+      "name": "VENT_ACTIVE_STAGE",
+      "data_type": "VentilationStage",
+      "choicelist_id": "VentilationStage",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "4",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": true
+    },
+    {
+      "id": "VENT_STAGE_SETPOINT",
+      "number": 2565,
+      "name": "VENT_STAGE_SETPOINT",
+      "data_type": "VentilationStage",
+      "choicelist_id": "VentilationStage",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "4",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": true
+    },
+    {
+      "id": "PID_GTW_ORDERNUMBER",
+      "number": 65553,
+      "name": "PID_GTW_ORDERNUMBER",
+      "data_type": "Number",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "2147483647",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": false
+    },
+    {
+      "id": "PID_GTW_PRODUCTIONNUMBER",
+      "number": 65554,
+      "name": "PID_GTW_PRODUCTIONNUMBER",
+      "data_type": "Number",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "2147483647",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": false
+    },
+    {
+      "id": "PID_GTW_FACTORYNUMBER",
+      "number": 65555,
+      "name": "PID_GTW_FACTORYNUMBER",
+      "data_type": "Number",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "2147483647",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": false
+    },
+    {
+      "id": "PID_ORDERNUMBER_MAINCONTROL_UNIT",
+      "number": 65556,
+      "name": "PID_ORDERNUMBER_MAINCONTROL_UNIT",
+      "data_type": "Number",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "2147483647",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": false
+    },
+    {
+      "id": "PID_PRODUCTIONNUMBER_MAINCONTROL_UNIT",
+      "number": 65557,
+      "name": "PID_PRODUCTIONNUMBER_MAINCONTROL_UNIT",
+      "data_type": "Number",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "2147483647",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": false
+    },
+    {
+      "id": "PID_FACTORYNUMBER_MAINCONTROL_UNIT",
+      "number": 65558,
+      "name": "PID_FACTORYNUMBER_MAINCONTROL_UNIT",
+      "data_type": "Number",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "2147483647",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": false
+    },
+    {
+      "id": "PID_GTW_PLANT_IDENTIFICATION",
+      "number": 65593,
+      "name": "PID_GTW_PLANT_IDENTIFICATION",
+      "data_type": "Number",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "2147483647",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": false
+    },
+    {
+      "id": "PID_PLANT_IDENTIFICATION_MAINCONTROL_UNIT",
+      "number": 65594,
+      "name": "PID_PLANT_IDENTIFICATION_MAINCONTROL_UNIT",
+      "data_type": "Number",
+      "access_permissions": [
+        {
+          "entity": "my_stiebel_app",
+          "access": "read"
+        },
+        {
+          "entity": "stiebel_eltron_cloud",
+          "access": "read"
+        }
+      ],
+      "min_value": "0",
+      "max_value": "2147483647",
+      "scale": "0",
+      "unit": "none",
+      "enabled_default": false
+    }
+  ],
+  "groups": [
+    {
+      "id": "MY_STIEBEL",
+      "number": 1,
+      "parameters": [
+        2553,
+        2554,
+        2555,
+        2556,
+        2557,
+        2558,
+        2559,
+        2560,
+        2561,
+        2562,
+        2563,
+        2564,
+        2565,
+        65553,
+        65554,
+        65555,
+        65556,
+        65557,
+        65558,
+        65593,
+        65594
+      ],
+      "subgroups": []
+    }
+  ]
+}
