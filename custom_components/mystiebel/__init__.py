@@ -11,7 +11,7 @@ from homeassistant.helpers import aiohttp_client
 from .const import DOMAIN
 from .coordinator import MyStiebelCoordinator
 from .mystiebel_auth import MyStiebelAuth
-from .parameters import load_parameters
+from .parameters import load_parameters_for_installation, profile_type_from_installation
 from .storage import CredentialStore
 from .websocket_client import setup_websocket_listener
 
@@ -109,6 +109,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     device_name = f"{device_data.get('profile', {}).get('name', 'Unknown')} in {device_data.get('location', {}).get('city', 'Unknown')}"
     model = device_data.get("profile", {}).get("name", "Unknown")
+    profile_type = profile_type_from_installation(device_data)
     sw_version = device_data.get("firmware", {}).get("firmwareVersion")
     mac_address = device_data.get("macAddress")
 
@@ -129,10 +130,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         bath_volume,
         shower_output,
     )
+    coordinator.profile_type = profile_type
     hass.data[DOMAIN][entry.entry_id] = coordinator
 
     language = hass.config.language
-    loaded_data = await hass.async_add_executor_job(load_parameters, language)
+    loaded_data = await hass.async_add_executor_job(
+        load_parameters_for_installation, device_data, language
+    )
 
     coordinator.parameters = loaded_data.get("parameters", {})
     coordinator.alarms = loaded_data.get("alarms", {})

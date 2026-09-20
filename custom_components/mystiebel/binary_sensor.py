@@ -48,12 +48,15 @@ class MyStiebelBinarySensor(MyStiebelBaseEntity, BinarySensorEntity):
         self._register_index = register_index
         self._attr_unique_id = f"mystiebel_{register_index}"
         self._attr_name = param.get("display_name")
-        if register_index not in ESSENTIAL_SENSORS:
+        enabled_default = (
+            param.get("enabled_default", False)
+            or register_index in ESSENTIAL_SENSORS
+        )
+        self._attr_entity_registry_enabled_default = enabled_default
+        if not enabled_default:
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
-            self._attr_entity_registry_enabled_default = False
         else:
             self._attr_entity_category = None
-            self._attr_entity_registry_enabled_default = True
 
     def _handle_coordinator_update(self) -> None:
         self.async_write_ha_state()

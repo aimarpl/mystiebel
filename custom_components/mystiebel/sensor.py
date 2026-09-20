@@ -19,6 +19,7 @@ from .const import (
     STATE_CLASS_MAP,
     UNIT_MAP,
 )
+from .parameters import supported_auxiliary_sensors
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -58,60 +59,75 @@ async def async_setup_entry(hass: HomeAssistant, entry, async_add_entities):
     if 87 in fields_to_create:
         entities.append(MyStiebelAlarmSensor(coordinator, alarms_map))
 
-    entities.append(
-        MyStiebelCombinedInfoSensor(
-            coordinator,
-            "controller_sw_version",
-            "mdi:chip",
-            {"p1": 65535, "p2": 65536, "p3": 65537, "p4": 65560},
-            "{p1}.{p2}.{p3:02d}.{p4:04d}",
+    auxiliary_sensors = supported_auxiliary_sensors(fields_to_create)
+    if "controller_sw_version" in auxiliary_sensors:
+        entities.append(
+            MyStiebelCombinedInfoSensor(
+                coordinator,
+                "controller_sw_version",
+                "mdi:chip",
+                {"p1": 65535, "p2": 65536, "p3": 65537, "p4": 65560},
+                "{p1}.{p2}.{p3:02d}.{p4:04d}",
+            )
         )
-    )
-    entities.append(
-        MyStiebelCombinedInfoSensor(
-            coordinator,
-            "wifi_adapter_sw_version",
-            "mdi:wifi",
-            {"p1": 65523, "p2": 65524, "p3": 65559, "p4": 65525},
-            "{p1}.{p2}.{p3:02d}.{p4:04d}",
+    if "wifi_adapter_sw_version" in auxiliary_sensors:
+        entities.append(
+            MyStiebelCombinedInfoSensor(
+                coordinator,
+                "wifi_adapter_sw_version",
+                "mdi:wifi",
+                {"p1": 65523, "p2": 65524, "p3": 65559, "p4": 65525},
+                "{p1}.{p2}.{p3:02d}.{p4:04d}",
+            )
         )
-    )
-    entities.append(
-        MyStiebelCombinedInfoSensor(
-            coordinator,
-            "product_pid",
-            "mdi:barcode-scan",
-            {"p1": 65556, "p2": 65557, "p3": 65558, "p4": 65594},
-            "{p1:06d}-{p2:06d}-{p3:06d}-{p4:06d}",
+    if "product_pid" in auxiliary_sensors:
+        entities.append(
+            MyStiebelCombinedInfoSensor(
+                coordinator,
+                "product_pid",
+                "mdi:barcode-scan",
+                {"p1": 65556, "p2": 65557, "p3": 65558, "p4": 65594},
+                "{p1:06d}-{p2:06d}-{p3:06d}-{p4:06d}",
+            )
         )
-    )
-    entities.append(
-        MyStiebelCombinedInfoSensor(
-            coordinator,
-            "gateway_pid",
-            "mdi:barcode-scan",
-            {"p1": 65553, "p2": 65554, "p3": 65555, "p4": 65593},
-            "{p1:06d}-{p2:06d}-{p3:06d}-{p4:06d}",
+    if "gateway_pid" in auxiliary_sensors:
+        entities.append(
+            MyStiebelCombinedInfoSensor(
+                coordinator,
+                "gateway_pid",
+                "mdi:barcode-scan",
+                {"p1": 65553, "p2": 65554, "p3": 65555, "p4": 65593},
+                "{p1:06d}-{p2:06d}-{p3:06d}-{p4:06d}",
+            )
         )
-    )
-    entities.append(
-        MyStiebelRuntimeSensor(coordinator, "runtime_compressor", 2449, 555)
-    )
-    entities.append(MyStiebelRuntimeSensor(coordinator, "runtime_heating", 2450, 558))
-    entities.append(
-        MyStiebelCalculatedSensor(
-            coordinator, "available_baths", "mdi:bathtub-outline", 2395, "bath_volume"
+    if "runtime_compressor" in auxiliary_sensors:
+        entities.append(
+            MyStiebelRuntimeSensor(coordinator, "runtime_compressor", 2449, 555)
         )
-    )
-    entities.append(
-        MyStiebelCalculatedSensor(
-            coordinator,
-            "available_shower_time",
-            "mdi:shower-head",
-            2395,
-            "shower_output",
+    if "runtime_heating" in auxiliary_sensors:
+        entities.append(
+            MyStiebelRuntimeSensor(coordinator, "runtime_heating", 2450, 558)
         )
-    )
+    if "available_baths" in auxiliary_sensors:
+        entities.append(
+            MyStiebelCalculatedSensor(
+                coordinator,
+                "available_baths",
+                "mdi:bathtub-outline",
+                2395,
+                "bath_volume",
+            )
+        )
+    if "available_shower_time" in auxiliary_sensors:
+        entities.append(
+            MyStiebelCalculatedSensor(
+                coordinator,
+                "available_shower_time",
+                "mdi:shower-head",
+                2395,
+                "shower_output",
+            )
+        )
 
     async_add_entities(entities)
 
@@ -282,12 +298,15 @@ class MyStiebelSensor(MyStiebelBaseEntity, SensorEntity):
         self._attr_state_class = STATE_CLASS_MAP.get(data_type)
         if param.get("choices"):
             self._attr_state_class = None
-        if register_index not in ESSENTIAL_SENSORS:
+        enabled_default = (
+            param.get("enabled_default", False)
+            or register_index in ESSENTIAL_SENSORS
+        )
+        self._attr_entity_registry_enabled_default = enabled_default
+        if not enabled_default:
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
-            self._attr_entity_registry_enabled_default = False
         else:
             self._attr_entity_category = None
-            self._attr_entity_registry_enabled_default = True
 
     def _handle_coordinator_update(self) -> None:
         self.async_write_ha_state()

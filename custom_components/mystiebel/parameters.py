@@ -5,7 +5,38 @@ import logging
 from pathlib import Path
 
 _LOGGER = logging.getLogger(__name__)
-json_path = Path(__file__).resolve().parent / "data" / "parameters.json"
+data_path = Path(__file__).resolve().parent / "data"
+json_path = data_path / "parameters.json"
+PROFILE_PARAMETER_FILES = {
+    "central_ventilation_wifi": data_path / "central_ventilation_wifi.json",
+}
+READ_ONLY_PROFILE_TYPES = {"central_ventilation_wifi"}
+AUXILIARY_SENSOR_REGISTERS = {
+    "controller_sw_version": {65535, 65536, 65537, 65560},
+    "wifi_adapter_sw_version": {65523, 65524, 65525, 65559},
+    "product_pid": {65556, 65557, 65558, 65594},
+    "gateway_pid": {65553, 65554, 65555, 65593},
+    "runtime_compressor": {2449, 555},
+    "runtime_heating": {2450, 558},
+    "available_baths": {2395},
+    "available_shower_time": {2395},
+}
+
+
+def supported_auxiliary_sensors(fields):
+    """Return auxiliary sensors whose source registers exist in the profile."""
+    available_fields = set(fields)
+    return {
+        name
+        for name, required_fields in AUXILIARY_SENSOR_REGISTERS.items()
+        if required_fields <= available_fields
+    }
+
+
+def profile_type_from_installation(device_data):
+    """Return the profile type used by the MyStiebel installation."""
+    profile = device_data.get("profile", {}) if device_data else {}
+    return profile.get("typeName") or profile.get("type_name")
 
 
 def convert_value(value_str, scale_str):
@@ -22,8 +53,13 @@ def convert_value(value_str, scale_str):
         return value_str
 
 
-def load_parameters(language="en", json_file_path=json_path):
-    with Path(json_file_path).open("r", encoding="utf-8") as f:
+def load_parameters(language="en", json_file_path=None, profile_type=None):
+    selected_path = (
+        Path(json_file_path)
+        if json_file_path is not None
+        else PROFILE_PARAMETER_FILES.get(profile_type, json_path)
+    )
+    with selected_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
     all_translations = {
@@ -72,6 +108,14 @@ def load_parameters(language="en", json_file_path=json_path):
             param.get("choicelist_id"),
         )
         translated_name = all_translations.get(name_key, name_key)
+        access = list(
+            dict.fromkeys(
+                permission["access"]
+                for permission in param.get("access_permissions", [])
+            )
+        )
+        if profile_type in READ_ONLY_PROFILE_TYPES and access:
+            access = ["read"]
         entry = {
             "id": param.get("id"),
             "name": name_key,
@@ -80,12 +124,13 @@ def load_parameters(language="en", json_file_path=json_path):
             "data_type": param.get("data_type"),
             "unit": param.get("unit"),
             "scale": scale_factor,
-            "access": [p["access"] for p in param.get("access_permissions", [])],
+            "access": access,
             "choicelist_id": choicelist_id,
             "choices": choice_list_map.get(choicelist_id, {}) if choicelist_id else {},
             "min": convert_value(param.get("min_value"), scale_factor),
             "max": convert_value(param.get("max_value"), scale_factor),
             "group_id": parameter_to_group_map.get(param_number),
+            "enabled_default": bool(param.get("enabled_default", False)),
         }
         parameter_map[param_number] = entry
 
@@ -100,3 +145,11 @@ def load_parameters(language="en", json_file_path=json_path):
         "user_fields": user_friendly_fields,
         "all_fields": list(parameter_map.keys()),
     }
+
+
+def load_parameters_for_installation(device_data, language="en"):
+    """Load the parameter profile matching a MyStiebel installation."""
+    return load_parameters(
+        language,
+        profile_type=profile_type_from_installation(device_data),
+    )
